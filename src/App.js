@@ -3,84 +3,39 @@ import './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       <h1>Test React App</h1>
-  //     </div>
-  //   );
-
-  //Above code is simplified code of this
-  //return React.createElement('div',{className : 'App'},React.createElement('h1',null,'Test React App'));
 
   state = {
     persons: [
       {
-        name: 'Arun',
+        id: "101",
+        name: 'Vignesh',
         age: '34'
       },
       {
+        id: "102",
         name: 'Karthi',
         age: '27'
       }
     ],
 
-    info: 'Person details',
-
     showPersons: false
   }
 
-  nameChangeHandler = () => {
-    //set state used to change the property value dynamically
+  twoWayBindingHandler = (id, event) => {
+
+    const persons = [...this.state.persons];
+    const index = persons.findIndex(p => p.id === id);
+    const person = persons[index];
+    person.name = event.target.value;
+    persons[index] = person;
+
     this.setState({
-      persons: [
-        {
-          name: 'Vignesh',
-          age: '25'
-        },
-        {
-          name: 'Deepan',
-          age: '19'
-        }
-      ]
+      persons: persons
     })
 
   }
 
-  nameChangeDynamicHandler = (props) => {
-    this.setState({
-      persons: [
-        {
-          name: 'Martu',
-          age: props
-        },
-        {
-          name: 'Deepan',
-          age: '19'
-        }
-      ]
-    })
-
-  }
-
-  twoWayBindingHandler = (ev) => {
-    this.setState({
-      persons: [
-        {
-          name: 'Martu',
-          //this is do two way binding
-          age: ev.target.value
-        },
-        {
-          name: 'Deepan',
-          age: '19'
-        }
-      ]
-    })
-
-  }
-
-  togglePersons = (event) => {
+  togglePersons = () => {
     this.setState(
       {
         showPersons: !this.state.showPersons
@@ -88,18 +43,26 @@ class App extends Component {
     )
   }
 
-
-
+  removePerson = (index) => {
+    const personsCpy = [...this.state.persons];
+    personsCpy.splice(index, 1);
+    this.setState({ persons: personsCpy })
+  }
 
   render() {
 
     //Inline CSS
     const styling = {
-      backgroundColor: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      backgroundColor: 'green',
+      color: 'white',
+      ':hover': {
+        backgroundColor : "lightgreen",
+        color: 'black'
+      }
     }
 
     let persons = null;
@@ -107,46 +70,46 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          {/* Passing name, age and Hooby to Person component 
-            Also we can pass method reference nameChangeDynamicHandler
-            () => this.nameChangeDynamicHandler(30) this is another way of passing value to state method
-          */}
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            nameChange={() => this.nameChangeDynamicHandler(30)}>
-            Hobby : Games
-          </Person>
-
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-          />
+          {/* Key Expected by React to work efficiantly internally */}
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                name={person.name}
+                age={person.age}
+                key={person.id}
+                removePerson={this.removePerson.bind(this, index)}
+                twoWayBind={this.twoWayBindingHandler.bind(this, person.id)}
+              />
+            )
+          })}
         </div>
-      )
+      );
+
+      styling.backgroundColor = 'red';
+      styling[':hover'] = {
+        backgroundColor : "salmon",
+        color: 'black'
+      }
+
+    }
+
+    let classes = [];
+
+    if(this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+
+    if(this.state.persons.length <= 1) {
+      classes.push('bold');
     }
 
     return (
       <div className="App">
-        <h1>Test React App</h1>
-        {/*  Should not use this.nameChangeDynamicHandler() - should use this.nameChangeDynamicHandler - without param
-                bind to pass value to state method - below is prefered way of passing value to state
-          */}
-        <button onClick={this.nameChangeDynamicHandler.bind(this, 25)}>State Change</button>
-
-
-        {/* inline style example */}
-        <button style={styling} onClick={this.nameChangeHandler}>another button</button>
-
-        <button onClick={this.togglePersons}>Toggle</button>
-
-        {/* this is do two way binding*/}
-        <input type="text" value={this.state.persons[0].age} onChange={this.twoWayBindingHandler} />
+        <h1>My First React App</h1>
+        <p className={classes.join(' ')}> This is relally working!! </p>
+        <button style={styling} onClick={this.togglePersons}>Toggle Persons</button>
 
         {persons}
-
-        {/* info wont be overritten if we use state in Class component*/}
-        <p>{this.state.info}</p>
       </div>
     );
 
