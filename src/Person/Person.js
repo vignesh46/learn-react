@@ -10,9 +10,11 @@ const Person = (props) => {
         //props.children will access Hobby
         //props.nameChange is a event handler which we written in App.js
         <div className="Person">
-            <p onClick={props.nameChange}>I am {props.name} and {props.age} years old</p>
+            <p onClick={props.removePerson}>I am {props.name} and {props.age} years old</p>
             <p>{props.children}</p>
-         </div>
+            {/* this is do two way binding*/}
+            <input type="text" value={props.name} onChange={props.twoWayBind} />
+        </div>
     );
 }
 
