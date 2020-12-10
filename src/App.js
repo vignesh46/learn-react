@@ -58,11 +58,7 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer',
       backgroundColor: 'green',
-      color: 'white',
-      ':hover': {
-        backgroundColor : "lightgreen",
-        color: 'black'
-      }
+      color: 'white'
     }
 
     let persons = null;
@@ -86,10 +82,6 @@ class App extends Component {
       );
 
       styling.backgroundColor = 'red';
-      styling[':hover'] = {
-        backgroundColor : "salmon",
-        color: 'black'
-      }
 
     }
 
