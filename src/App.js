@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
 
@@ -59,8 +60,9 @@ class App extends Component {
       cursor: 'pointer',
       backgroundColor: 'green',
       color: 'white',
+      //Radium helps here to use sudo selectors
       ':hover': {
-        backgroundColor : "lightgreen",
+        backgroundColor: "lightgreen",
         color: 'black'
       }
     }
@@ -87,7 +89,7 @@ class App extends Component {
 
       styling.backgroundColor = 'red';
       styling[':hover'] = {
-        backgroundColor : "salmon",
+        backgroundColor: "salmon",
         color: 'black'
       }
 
@@ -95,22 +97,24 @@ class App extends Component {
 
     let classes = [];
 
-    if(this.state.persons.length <= 2) {
+    if (this.state.persons.length <= 2) {
       classes.push('red');
     }
 
-    if(this.state.persons.length <= 1) {
+    if (this.state.persons.length <= 1) {
       classes.push('bold');
     }
 
     return (
-      <div className="App">
-        <h1>My First React App</h1>
-        <p className={classes.join(' ')}> This is relally working!! </p>
-        <button style={styling} onClick={this.togglePersons}>Toggle Persons</button>
+      <StyleRoot>
+        <div className="App">
+          <h1>My First React App</h1>
+          <p className={classes.join(' ')}> This is relally working!! </p>
+          <button style={styling} onClick={this.togglePersons}>Toggle Persons</button>
 
-        {persons}
-      </div>
+          {persons}
+        </div>
+      </StyleRoot>
     );
 
 
@@ -118,4 +122,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
