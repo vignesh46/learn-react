@@ -18,13 +18,6 @@ const StyledDiv = Styled.div`
 
 //Example of functional component
 const Person = (props) => {
-    // Using Radium for media queries
-    const styling = {
-        '@media (min-width : 500px)': {
-            width: '450px'
-        }
-    }
-
 
     return (
         <StyledDiv>

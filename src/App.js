@@ -67,21 +67,6 @@ class App extends Component {
 
   render() {
 
-    //Inline CSS
-    const styling = {
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      backgroundColor: 'green',
-      color: 'white',
-      //Radium helps here to use sudo selectors
-      ':hover': {
-        backgroundColor: "lightgreen",
-        color: 'black'
-      }
-    }
-
     let persons = null;
 
     if (this.state.showPersons) {
@@ -101,12 +86,6 @@ class App extends Component {
           })}
         </div>
       );
-
-      styling.backgroundColor = 'red';
-      styling[':hover'] = {
-        backgroundColor: "salmon",
-        color: 'black'
-      }
 
     }
 
