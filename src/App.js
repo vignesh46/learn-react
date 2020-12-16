@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import appClasses from  './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -9,12 +9,22 @@ class App extends Component {
       {
         id: "101",
         name: 'Vignesh',
-        age: '34'
+        age: '25'
       },
       {
         id: "102",
         name: 'Karthi',
-        age: '27'
+        age: '26'
+      },
+      {
+        id: "103",
+        name: 'Martin',
+        age: '25'
+      },
+      {
+        id: "104",
+        name: 'Krishna',
+        age: '26'
       }
     ],
 
@@ -50,18 +60,9 @@ class App extends Component {
   }
 
   render() {
-
-    //Inline CSS
-    const styling = {
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      backgroundColor: 'green',
-      color: 'white'
-    }
-
     let persons = null;
+    //ButtonClass reference
+    let buttonClass = [appClasses.Button];
 
     if (this.state.showPersons) {
       persons = (
@@ -81,25 +82,26 @@ class App extends Component {
         </div>
       );
 
-      styling.backgroundColor = 'red';
+      buttonClass.push(appClasses.Red);
 
     }
 
     let classes = [];
 
-    if(this.state.persons.length <= 2) {
-      classes.push('red');
+    if (this.state.persons.length <= 3) {
+      classes.push(appClasses.red);
     }
 
-    if(this.state.persons.length <= 1) {
-      classes.push('bold');
+    if (this.state.persons.length <= 1) {
+      classes.push(appClasses.bold);
     }
 
     return (
-      <div className="App">
+      <div className={appClasses.App}>
         <h1>My First React App</h1>
         <p className={classes.join(' ')}> This is relally working!! </p>
-        <button style={styling} onClick={this.togglePersons}>Toggle Persons</button>
+        
+        <button className={buttonClass.join(' ')} onClick={this.togglePersons}>Toggle Persons</button>
 
         {persons}
       </div>
