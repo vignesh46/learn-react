@@ -60,7 +60,6 @@ class App extends Component {
   }
 
   render() {
-
     let persons = null;
     //ButtonClass reference
     let buttonClass = [appClasses.Button];
