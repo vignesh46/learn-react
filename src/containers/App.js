@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import appClasses from  './App.css';
-import Person from './Person/Person';
+import appClasses from './App.css';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
 
@@ -62,47 +63,28 @@ class App extends Component {
   render() {
 
     let persons = null;
-    //ButtonClass reference
-    let buttonClass = [appClasses.Button];
 
     if (this.state.showPersons) {
       persons = (
         <div>
-          {/* Key Expected by React to work efficiantly internally */}
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                removePerson={this.removePerson.bind(this, index)}
-                twoWayBind={this.twoWayBindingHandler.bind(this, person.id)}
-              />
-            )
-          })}
+          <Persons
+            persons={this.state.persons}
+            removePerson={this.removePerson}
+            twoWayBind={this.twoWayBindingHandler}
+          />
         </div>
       );
 
-      buttonClass.push(appClasses.Red);
-
-    }
-
-    let classes = [];
-
-    if (this.state.persons.length <= 3) {
-      classes.push(appClasses.red);
-    }
-
-    if (this.state.persons.length <= 1) {
-      classes.push(appClasses.bold);
     }
 
     return (
       <div className={appClasses.App}>
-        <h1>My First React App</h1>
-        <p className={classes.join(' ')}> This is relally working!! </p>
-        
-        <button className={buttonClass.join(' ')} onClick={this.togglePersons}>Toggle Persons</button>
+        <Cockpit
+          title={this.props.appTitle}
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          togglePersons={this.togglePersons}
+        />
 
         {persons}
       </div>
