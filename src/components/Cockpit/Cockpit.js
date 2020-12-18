@@ -3,6 +3,8 @@ import cockpitClasses from './Cockpit.css'
 
 const cockpit = (props) => {
 
+    console.log("[Cockpit.js] render...");
+
     let buttonClass = [cockpitClasses.Button];
 
     if (props.showPersons) {

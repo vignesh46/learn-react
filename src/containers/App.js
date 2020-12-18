@@ -5,6 +5,12 @@ import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
 
+  //Lifecycle method 1
+  constructor(props) {
+    super(props);
+    console.log("[App.js] constructor 1");
+  }
+
   state = {
     persons: [
       {
@@ -30,6 +36,12 @@ class App extends Component {
     ],
 
     showPersons: false
+  }
+
+  //Lifecycle method 2
+  static getDerivedStateFromProps(props, state) {
+    console.log("[App.js] getDerivedStateFromProps 2 : ", props);
+    return state;
   }
 
   twoWayBindingHandler = (id, event) => {
@@ -60,7 +72,11 @@ class App extends Component {
     this.setState({ persons: personsCpy })
   }
 
+  //Lifecycle method 3
   render() {
+
+    console.log("[App.js] render... 3");
+
     let persons = null;
 
     if (this.state.showPersons) {
@@ -92,6 +108,12 @@ class App extends Component {
 
 
   }
+
+  //Lifecycle method 4
+  componentDidMount() {
+    console.log("[App.js] componentDidMount 4")
+  }
+
 }
 
 export default App;
